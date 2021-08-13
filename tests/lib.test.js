@@ -24,3 +24,37 @@ describe("greet", () => {
     expect(result).toContain("Manish");
   });
 });
+
+describe("getCurrencies", () => {
+  it("should return supported currencies", () => {
+    const result = lib.getCurrencies();
+
+    //Too genereal
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+
+    //Too specific
+    expect(result[0]).toBe("USD");
+    expect(result[1]).toBe("AUD");
+    expect(result[2]).toBe("EUR");
+    expect(result.length).toBe(3);
+
+    //proper way
+    expect(result).toContain("USD");
+    expect(result).toContain("AUD");
+    expect(result).toContain("USD");
+
+    //ideal way
+    expect(result).toEqual(expect.arrayContaining(["EUR", "USD", "AUD"]));
+  });
+});
+
+describe("getProduct", () => {
+  it("should return product with given id", () => {
+    const result = lib.getProduct(1);
+    // expect(result).toEqual({ id: 1, price: 10 });
+    expect(result).toMatchObject({ id: 1, price: 10 });
+
+    expect(result).toHaveProperty("id", 1);
+  });
+});
